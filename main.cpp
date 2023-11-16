@@ -24,14 +24,15 @@ void iniciar_vazias(Tubo T[]){
 void distribuir(Tubo T[]){
     int freq[TAM-1] = {0}, num;
     srand(time(0));
-    for(int p=1; p<TAM; p++){
-        do{
-            num = rand() % (TAM-1);
-        }while(freq[num]>=5);
-        freq[num]++;
-        push(T[p].pilha, num+1);
+    for(int i=0; i<TAM-1; i++){
+        for(int p=1; p<TAM; p++){
+            do{
+                num = rand() % (TAM-1);
+            }while(freq[num]>=5);
+            freq[num]++;
+            push(T[p].pilha, num+1);
+        }
     }
-    
 }
 
 void mudacor(int cor){
@@ -58,17 +59,19 @@ void printa_cor(int I){
 }
 
 void mostrar(Tubo T[]){
-    for(int i=0; i<TAM; i++){
+    for(int i=0; i<TAM-1; i++){
         for(int p=0; p<TAM; p++){
+            cout << "|";
             if(isEmpty(T[p].pilha)){
-                cout << p << " - ";
+                cout << " 0 | ";
             }else{
-                cout << p  << " - " << peek(T[p].pilha) << endl;
+                cout << " " << peek(T[p].pilha) << " | ";
                 pop(T[p].pilha);
             }
         }
-    cout << endl;
+        cout << endl;
     }
+    return;
 }
 
 int validar(Tubo T[], int o, int d){
