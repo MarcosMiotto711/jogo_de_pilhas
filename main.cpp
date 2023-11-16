@@ -22,44 +22,16 @@ void iniciar_vazias(Tubo T[]){
 }
 
 void distribuir(Tubo T[]){
-    int v, repetido;
-    int valores[TAM-1];
-    cout << "Valores: ";
-    for(int i=0; i<TAM-1; i++){
-        srand(time(NULL));
+    int freq[TAM-1] = {0}, num;
+    srand(time(0));
+    for(int p=1; p<TAM; p++){
         do{
-            v = rand() % 16;
-            repetido = 0;
-            for(int j=0; j<TAM-1; j++){
-                if(valores[j]==v){
-                    repetido = 1;
-                    break;
-                }
-            }
-        }while(repetido);
-        valores[i] = v;
-        cout << v << " ";
+            num = rand() % (TAM-1);
+        }while(freq[num]>=5);
+        freq[num]++;
+        push(T[p].pilha, num+1);
     }
-    cout << endl;
-    for(int i=1; i<TAM; i++){
-        int indices[TAM-1] = {};
-        cout << "indices: ";
-        for(int j=0; j<TAM-1; j++){
-            do{
-                srand(time(NULL));
-                v = rand() % TAM;
-                repetido = 0;
-                for(int k=0; k<TAM-1; k++){
-                    if(indices[k]==v){
-                        repetido = 1;
-                        break;
-                    }
-                }
-            }while(repetido);
-            indices[j] = v;
-            cout << v << " ";
-        }
-    }
+    
 }
 
 void mudacor(int cor){
@@ -87,11 +59,16 @@ void printa_cor(int I){
 
 void mostrar(Tubo T[]){
     for(int i=0; i<TAM; i++){
-        for(int j=0; j<TAM-1; j++){
-            
-        }        
+        for(int p=0; p<TAM; p++){
+            if(isEmpty(T[p].pilha)){
+                cout << p << " - ";
+            }else{
+                cout << p  << " - " << peek(T[p].pilha) << endl;
+                pop(T[p].pilha);
+            }
+        }
+    cout << endl;
     }
-    return;
 }
 
 int validar(Tubo T[], int o, int d){
